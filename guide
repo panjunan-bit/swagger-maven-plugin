@@ -1,0 +1,43 @@
+<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.8</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <springmvc>true</springmvc> <!-- 是否是 spring mvc 项目 -->
+                            <locations>
+                                <location>${location}</location> <!-- 要扫描的代码位置 -->
+                            </locations>
+                            <!-- 一些额外信息，相当于 swagger 中的 ApiInfo -->
+                            <info>
+                                <title>${project.artifactId}</title>
+                                <version>${project.version}</version>
+                                <description>${project.artifactId}</description>
+                            </info>
+                            <outputFormats>json,yaml</outputFormats> <!-- 输出格式，json / yaml 或者 json,yaml -->
+                            <swaggerDirectory>${project.parent.basedir}/generated-swagger-api</swaggerDirectory> <!-- 输出位置 -->
+                            <swaggerFileName>${project.artifactId}</swaggerFileName> <!-- 输出的文件名 -->
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
